@@ -1,0 +1,19 @@
+{
+  "name": "natsoft-live",
+  "version": "1.0.0",
+  "description": "Natsoft live timing relay and phone page on Cloudflare Workers",
+  "scripts": {
+    "test": "test -f test/cert.pem || openssl req -x509 -newkey rsa:2048 -nodes -keyout test/key.pem -out test/cert.pem -days 30 -subj /CN=localhost 2>/dev/null; tsx test/run.ts",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "tsc -p ."
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261023.1",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.152.0",
+    "ws": "^8.22.0"
+  },
+  "type": "module"
+}

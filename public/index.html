@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Natsoft Live</title>
+  <meta name="description" content="A cleaner live timing view for Natsoft meetings.">
+  <meta name="theme-color" content="#14161c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Natsoft Live">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Start screen -->
+  <main id="start" class="start" hidden>
+    <div class="start-inner">
+      <img src="icons/icon-192.png" alt="" class="start-icon" width="72" height="72">
+      <h1>Natsoft Live</h1>
+      <p class="muted">Enter a meeting ID — the part after <b>/LiveMeeting/</b> in a Natsoft live timing link — or paste the whole link.</p>
+      <form id="start-form" class="start-form" autocomplete="off">
+        <input id="meeting-input" name="meeting" placeholder="V8SUPER or 20261011.MOUN" autocapitalize="characters" spellcheck="false" enterkeyhint="go">
+        <button type="submit">Watch</button>
+      </form>
+      <p id="start-error" class="error" hidden></p>
+      <div id="recents" class="recents"></div>
+      <p class="start-links"><a href="#DEMO">Try the demo race</a> · <a href="#" id="check-link">Test the connection</a></p>
+    </div>
+  </main>
+
+  <!-- Access key prompt -->
+  <main id="keyscreen" class="start" hidden>
+    <div class="start-inner">
+      <h1>Access key</h1>
+      <p class="muted">This relay is private. Enter the access key you were given.</p>
+      <form id="key-form" class="start-form">
+        <input id="key-input" type="password" placeholder="Access key" autocomplete="current-password">
+        <button type="submit">Continue</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Connection check -->
+  <main id="checkscreen" class="start" hidden>
+    <div class="start-inner wide">
+      <h1>Connection check</h1>
+      <p class="muted">Checks this relay can reach Natsoft for <b id="check-meeting"></b>.</p>
+      <ol id="check-steps" class="check-steps"></ol>
+      <p id="check-summary"></p>
+      <p><a href="#">Back</a></p>
+    </div>
+  </main>
+
+  <!-- Live timing -->
+  <div id="app" class="app" hidden>
+    <div id="flagbar" class="flagbar"></div>
+    <header class="top">
+      <button id="back" class="icon-btn" aria-label="Change meeting">‹</button>
+      <div class="session">
+        <div id="meeting-name" class="meeting-name"></div>
+        <div id="session-name" class="session-name">Connecting…</div>
+        <div id="session-sub" class="session-sub"></div>
+      </div>
+      <div class="clock-box">
+        <div id="clock" class="clock">—</div>
+        <div id="clock-sub" class="clock-sub"></div>
+      </div>
+    </header>
+
+    <div class="strip">
+      <span id="flag" class="flag">—</span>
+      <span id="best" class="best"></span>
+      <span id="status" class="status"><i class="dot"></i><span id="status-text">Connecting</span></span>
+    </div>
+
+    <section id="timing-view" class="view">
+      <div class="metric-bar" role="tablist" aria-label="Column">
+        <button data-metric="gap" class="on">Gap</button>
+        <button data-metric="int">Int</button>
+        <button data-metric="last">Last</button>
+        <button data-metric="best">Best</button>
+      </div>
+      <div class="tower-head">
+        <span class="c-pos">Pos</span><span class="c-no">No.</span><span class="c-driver">Driver</span>
+        <span class="c-wide c-laps">Laps</span>
+        <span class="c-wide c-gap">Gap</span><span class="c-wide c-int">Int</span>
+        <span class="c-wide c-last">Last</span><span class="c-wide c-bestlap">Best</span>
+        <span class="c-xwide c-s">S1</span><span class="c-xwide c-s">S2</span><span class="c-xwide c-s">S3</span>
+        <span class="c-metric" id="metric-head">Gap</span>
+      </div>
+      <ol id="tower" class="tower"></ol>
+      <p id="empty" class="empty" hidden>Waiting for cars…</p>
+    </section>
+
+    <section id="rc-view" class="view" hidden>
+      <ol id="rc" class="rc"></ol>
+      <p id="rc-empty" class="empty">No race control messages yet this session.</p>
+    </section>
+
+    <nav class="tabs">
+      <button id="tab-timing" class="on">Timing</button>
+      <button id="tab-rc">Race Control <b id="rc-badge" class="badge" hidden></b></button>
+      <button id="tab-awake" title="Keep the screen on">Screen on</button>
+    </nav>
+  </div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

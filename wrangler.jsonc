@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "natsoft-live",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "RELAY", "class_name": "Relay" }]
+  },
+  "migrations": [
+    // SQLite-backed Durable Objects are the kind available on the free plan.
+    { "tag": "v1", "new_sqlite_classes": ["Relay"] }
+  ],
+  "observability": { "enabled": true }
+}
